@@ -1,7 +1,9 @@
 * {
     padding: 0;
     margin: 0;
+    border: none;
 }
+
 
 .total-area {
     background-color: rgb(102, 82, 41);
@@ -12,6 +14,7 @@
     justify-content: center;
     align-items: center;
     position: relative; /* Ensure positioning context for the pseudo-element */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .welcome {
@@ -31,17 +34,34 @@
     position: relative;
     z-index: 2; /* Ensure content is above the blurred background */
     color: aliceblue;
+    font-size: 28px;
+    display: grid;
+    gap: 300px;
 }
 
 input::placeholder {
     padding-left: 7px;
+    font-size: 20px;
+
 }
 
 input {
     height: 40px;
+    width: 350px;
     border-radius: 7px;
 }
 
-.input {
-    padding-top: 30px;
+button {
+    background-color: rgba(255, 255, 255, 0);
+    color: aliceblue;
+    margin-left: 20px;
+    font-size: 20px;
+}
+
+button:hover {
+    background-color: rgb(42, 110, 51);
+    height: 47px;
+    width: 76px;
+    border-radius: 12px;
+    box-shadow: 5px 4px 12px rgba(0, 0, 0, 0.322);
 }

@@ -1,60 +1,248 @@
+/* menu.css */
+
+/* Reset padrão */
 * {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: rgb(102, 82, 41);
+}
+
+/* Estilização da barra de rolagem similar ao Spotify */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(145, 107, 73, 0);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #33333300;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #55555500;
 }
 
 .total-area-menu {
-    background-color: rgb(102, 82, 41);
-    width: 100vw;
-    height: 100vh;
     display: flex;
     justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    padding: 10px;
+    overflow: hidden;
 }
 
 .menu {
     height: 93%;
-    width: 93%;
-    background-color: rgba(255, 255, 255, 0.61);
+    width: 100%;
+    max-width: 1200px;
+    background-color: rgba(255, 255, 255, 0.9);
     border-radius: 20px;
-    box-shadow: 0px 5px 15px black;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    overflow: auto;
+    overflow-y: auto;
     margin-top: 30px;
+    font-size: 18px;
+    padding: 20px;
+    color: #333;
+    animation: slideIn 0.5s ease-out;
 }
 
+nav, ul {
+    list-style-type: none;
+    text-decoration: none;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 10;
+    background-color: #55390f;
+    padding: 10px;
+    top: 42%;
+    left: 95%;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.432);
+    border-radius: 10px 0px 0px 10px;
+}
+
+a {
+    color: aliceblue;
+    padding: 10px 5px;
+}
+
+li {
+    padding: 0px 0px 30px;
+} 
+
+/* Keyframes para animação de entrada */
+@keyframes slideIn {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Botões */
 button {
     border: none;
     background: none;
-    padding: 17px;
-    margin-left: 18px;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    width: 100%;
+    font-size: 18px;
+    padding-left: 18px;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-    background-color: rgba(71, 151, 47, 0.267);
-    border-radius: 20px;
+    background-color: rgba(71, 151, 47, 0.288);
+    border-radius: 10px;
+    transform: scale(1.02);
 }
 
+/* Cabeçalhos */
 h1 {
-    padding-left: 200px;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    animation: colorChange 3s infinite;
 }
 
+/* Animação de mudança de cor */
+@keyframes colorChange {
+    0% {
+        color: #333;
+    }
+
+    50% {
+        color: #555;
+    }
+
+    100% {
+        color: #333;
+    }
+}
+
+/* Nome do lanche */
 .name-lanche {
     display: flex;
     justify-content: space-between;
-    width: 80vw;
+    margin-bottom: 10px;
 }
 
+/* Parágrafos */
 p {
-    display: flex;
-    padding-top: 7px;
+    margin: 5px 0;
+    color: #555;
 }
 
+/* Linha horizontal */
 hr {
-    border: 0px;
-    height: 10px;
+    border: 1px solid rgb(0, 0, 0);
+    height: 3px;
     width: 60vw;
-    border-top: 2px solid #000;
-    margin: 10px 0px 14px 26px;
+    margin: 0px 0px 15px 20px;
+}
+
+/* Rodapé */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    background-color: rgb(61, 50, 27); /* Cor de fundo do rodapé */
+    color: #ffffff; /* Cor do texto */
+    text-align: center;
+    padding: 15px;
+    cursor: pointer;
+    transition: height 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    height: 50px;
+    border-radius: 14px 14px 0 0;
+    z-index: 1000;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Animação de aparecimento do rodapé */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+footer.expanded {
+    height: 70vh;
+    width: 95%;
+    background-color: rgba(61, 50, 27, 0.986);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Layout justificado */
+.just {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 10px;
+    color: white;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .menu {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+
+    footer {
+        height: 40px;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    button {
+        font-size: 16px;
+    }
+}
+
+.expand-button {
+    color: white;
+}
+
+.finish {
+    color: white;
+}
+
+.infoo {
+    color: #919191;
 }

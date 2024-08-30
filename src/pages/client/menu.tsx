@@ -1,329 +1,168 @@
-import React from "react";
-import "./menu.css"
+import React, { useState, useEffect } from "react";
+import { FaHamburger, FaUtensils, FaGlassCheers, FaBeer } from "react-icons/fa";
+import { useMenu } from "../../context/MenuContext";  // Certifique-se de que o caminho está correto
+import "./menu.css";
 
-const Menu: React.FC = () => (
-    <div className="total-area-menu">
-        <div className="menu">
-            <h1>Lanches</h1>
-            <button>
-                <div className="name-lanche">
-                    <h3>Hamburguer</h3>
-                    <h3>R$  16,00</h3>
-                </div>
-                <p>Pão especial de batata, Bife caseiro de 145g</p>
-                <p>Alface, tomate, banana e batata palha</p>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>X-Burguer</h3>
-                    <h3>R$  17,00</h3>
-                </div>
-                <p>Pão especial de batata, Bife caseiro de 145g, queijo</p>
-                <p>Alface, tomate, banana e batata palha</p>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>X-Egg</h3>
-                    <h3>R$  19,00</h3>
-                </div>
-                <p>Pão especial de batata, Bife caseiro de 145g, queijo, ovo</p>
-                <p>Alface, tomate, banana e batata palha</p>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>X-Bacon</h3>
-                    <h3>R$  20,00</h3>
-                </div>
-                <p>Pão especial de batata, Bife caseiro de 145g, queijo,</p>
-                <p>bacon, alface, tomate, banana e batata palha</p>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>X-Calabresa</h3>
-                    <h3>R$  20,00</h3>
-                </div>
-                <p>Pão especial de batata, Bife caseiro de 145g, queijo, </p>
-                <p>calabresa, alface, tomate, banana e batata palha</p>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>X-Egg Bacon</h3>
-                    <h3>R$  21,00</h3>
-                </div>
-                <p>Pão especial de batata, Bife caseiro de 145g, queijo,</p>
-                <p>bacon, ovo, alface, tomate, banana e batata palha</p>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>X-Tudo</h3>
-                    <h3>R$  23,00</h3>
-                </div>
-                <p>Pão especial de batata, Bife caseiro de 145g, queijo,</p>
-                <p>bacon, ovo, presunto, alface, tomate, banana e batata palha</p>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Moda da Casa</h3>
-                    <h3>R$  28,00</h3>
-                </div>
-                <p>Pão especial de batata, Bife caseiro de 145g, queijo</p>
-                <p>2x bacon, 2x ovo, presunto, alface, tomate, banana e batata palha</p>
-            </button>
+interface MenuItem {
+    name: string;
+    price: number;
+    description: string;
+}
 
-            <hr />
+const Menu: React.FC = () => {
+    const { tableNumber, setTableNumber, selectedItems, setSelectedItems } = useMenu();
+    const [isFooterExpanded, setIsFooterExpanded] = useState(false);
 
-            <h1>Petiscos</h1>
-            <button>
-                <div className="name-lanche">
-                    <h3>Porção de Quibe</h3>
-                    <h3>R$  17,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Frango à passarinho</h3>
-                    <h3>R$  32,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Isca de Frango Empanado</h3>
-                    <h3>R$  45</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Filé de Pernil Suíno</h3>
-                    <h3>R$  35,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Filé de Tilápia empanada</h3>
-                    <h3>R$  53,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Filé de Boi</h3>
-                    <h3>R$  50,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Bem bolado</h3>
-                    <h3>R$  116,00</h3>
-                </div>
-                <p>400g de Filé de alcatra, 270g de frango a passarinho, 200g de batata frita, 200g de aimpim frito, torresmo</p>
-                <p>alface, tomate, palmito, pepino e azeitona</p>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Carne na tábua</h3>
-                    <h3>R$  169,00</h3>
-                </div>
-                <p>400g de File de boi, 450g de frango a passarinho,400g de batata frita, 400g de aimpim frito</p>
-                <p>200g de torresmo,300g de calabresa, banana frita,ovo de codorna,alface, tomate, palmito,</p>
-                <p>azeitonae pepino</p>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Batata Frita</h3>
-                    <h3>R$  18,00</h3>
-                </div>
-                <p>400g de batata frita</p>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Aipim Frito</h3>
-                    <h3>R$  17,00</h3>
-                </div>
-                <p>400g de aipim frito</p>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Palmito</h3>
-                    <h3>R$  16,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Calabresa acebolada</h3>
-                    <h3>R$  24,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche" >
-                    <h3>Torresmo</h3>
-                    <h3>R$  20,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Batata Cheedar e Bacon</h3>
-                    <h3>R$  28,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Salaminho</h3>
-                    <h3>R$  19,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Queijo provolone</h3>
-                    <h3>R$  20,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Salada fria</h3>
-                    <h3>R$  51,00</h3>
-                </div>
-                <p>Alface, tomate, azeitona, pepino, palmito, salaminho, ovo de codorna</p>
-            </button>
+    useEffect(() => {
+        const storedTableNumber = sessionStorage.getItem('mesa');
+        setTableNumber(storedTableNumber || 'não definido');
+    }, [setTableNumber]);
 
-            <hr />
+    const handleItemClick = (item: MenuItem) => {
+        setSelectedItems(prevItems => [...prevItems, item]);
+    };
 
-            <h1>Bebidas</h1>
-            <button>
-                <div className="name-lanche">
-                    <h3>Água mineral</h3>
-                    <h3>R$  3,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Água com gás</h3>
-                    <h3>R$  4,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Refrigerante Juninho</h3>
-                    <h3>R$  4,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Refrigerante Lata</h3>
-                    <h3>R$  6,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Refrigerante 600ml</h3>
-                    <h3>R$  9,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Refrigerante 1L</h3>
-                    <h3>R$  9,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Refrigerante 1,5L</h3>
-                    <h3>R$  11,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Refrigerante 2L</h3>
-                    <h3>R$  14,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Suco Natural</h3>
-                    <h3>R$  7,00</h3>
-                </div>
-                <p>Sabores:</p><br />
-                <p>Laranja, maracuja, graviola, abacaxi, manga, limonada suiça, acerola e morango</p>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Jarra de suco Natural</h3>
-                    <h3>R$  14,00</h3>
-                </div>
-                <p>Sabores:</p><br />
-                <p>Laranja, maracuja, graviola, abacaxi, manga, limonada suiça, acerola e morango</p>
-            </button>
+    const handleSubmit = () => {
+        console.log("Itens enviados:", selectedItems);
+        setSelectedItems([]);
+    };
 
-            <hr />
+    const toggleFooter = () => {
+        setIsFooterExpanded(!isFooterExpanded);
+    };
 
-            <h1>Bebidas Alcoolicas</h1>
-            <button>
-                <div className="name-lanche">
-                    <h3>Latão de cerveja</h3>
-                    <h3>R$  7,00</h3>
-                </div>
-                <p>Brahma, skol, antartica</p>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Long Neck</h3>
-                    <h3>R$  10,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>0% Alcool</h3>
-                    <h3>R$  9,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Cerveja 600ml</h3>
-                    <h3>R$  10,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Cerveja Original</h3>
-                    <h3>R$  12,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Heineken</h3>
-                    <h3>R$  15,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Cerveja Litrão</h3>
-                    <h3>R$  13,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Caipirinha</h3>
-                    <h3>R$  10,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>CaipVodka</h3>
-                    <h3>R$  14,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Vinho</h3>
-                    <h3>R$  10,00</h3>
-                </div>
-            </button>
-            <button>
-                <div className="name-lanche">
-                    <h3>Campari</h3>
-                    <h3>R$  10,00</h3>
-                </div>
-            </button>
+    const menuItems: MenuItem[] = [
+        { name: "Hamburguer", price: 16, description: "Pão especial de batata, Bife caseiro de 145g, Alface, tomate, banana e batata palha" },
+        { name: "X-Burguer", price: 17, description: "Pão especial de batata, Bife caseiro de 145g, queijo, Alface, tomate, banana e batata palha" },
+        { name: "X-Egg", price: 19, description: "Pão especial de batata, Bife caseiro de 145g, queijo, ovo, Alface, tomate, banana e batata palha" },
+        { name: "X-Bacon", price: 20, description: "Pão especial de batata, Bife caseiro de 145g, queijo, bacon, alface, tomate, banana e batata palha" },
+        { name: "X-Calabresa", price: 20, description: "Pão especial de batata, Bife caseiro de 145g, queijo, calabresa, alface, tomate, banana e batata palha" },
+        { name: "X-Egg Bacon", price: 21, description: "Pão especial de batata, Bife caseiro de 145g, queijo, bacon, ovo, alface, tomate, banana e batata palha" },
+        { name: "X-Tudo", price: 23, description: "Pão especial de batata, Bife caseiro de 145g, queijo, bacon, ovo, presunto, alface, tomate, banana e batata palha" },
+        { name: "Moda da Casa", price: 28, description: "Pão especial de batata, Bife caseiro de 145g, queijo, 2x bacon, 2x ovo, presunto, alface, tomate, banana e batata palha" },
+        { name: "Porção de Quibe", price: 17, description: "" },
+        { name: "Frango à passarinho", price: 32, description: "" },
+        { name: "Isca de Frango Empanado", price: 45, description: "" },
+        { name: "Filé de Pernil Suíno", price: 35, description: "" },
+        { name: "Filé de Tilápia empanada", price: 53, description: "" },
+        { name: "Filé de Boi", price: 50, description: "" },
+        { name: "Bem bolado", price: 116, description: "400g de Filé de alcatra, 270g de frango a passarinho, 200g de batata frita, 200g de aimpim frito, torresmo, alface, tomate, palmito, pepino e azeitona" },
+        { name: "Carne na tábua", price: 169, description: "400g de File de boi, 450g de frango a passarinho,400g de batata frita, 400g de aimpim frito, 200g de torresmo,300g de calabresa, banana frita,ovo de codorna,alface, tomate, palmito, azeitonae pepino" },
+        { name: "Batata Frita", price: 18, description: "400g de batata frita" },
+        { name: "Aipim Frito", price: 17, description: "400g de aipim frito" },
+        { name: "Palmito", price: 16, description: "" },
+        { name: "Calabresa acebolada", price: 24, description: "" },
+        { name: "Torresmo", price: 20, description: "" },
+        { name: "Batata Cheedar e Bacon", price: 28, description: "" },
+        { name: "Salaminho", price: 19, description: "" },
+        { name: "Queijo provolone", price: 20, description: "" },
+        { name: "Salada fria", price: 51, description: "Alface, tomate, azeitona, pepino, palmito, salaminho, ovo de codorna" },
+        { name: "Água mineral", price: 3, description: "" },
+        { name: "Água com gás", price: 4, description: "" },
+        { name: "Refrigerante Juninho", price: 4, description: "" },
+        { name: "Refrigerante Lata", price: 6, description: "" },
+        { name: "Refrigerante 600ml", price: 9, description: "" },
+        { name: "Refrigerante 1L", price: 9, description: "" },
+        { name: "Refrigerante 1,5L", price: 11, description: "" },
+        { name: "Refrigerante 2L", price: 14, description: "" },
+        { name: "Suco Natural", price: 8, description: "" },
+        { name: "Cerveja Lata", price: 8, description: "" },
+        { name: "Cerveja 600ml", price: 11, description: "" },
+        { name: "Caipirinha", price: 10, description: "" },
+        { name: "Cachaça", price: 5, description: "" },
+        { name: "Whisky", price: 15, description: "" },
+        { name: "Vodka", price: 12, description: "" },
+    ];
+
+    return (
+        <div className="total-area-menu">
+            <div className="menu">
+                <nav>
+                    <ul>
+                        <li><a href="#lanches"><FaHamburger /></a></li>
+                        <li><a href="#petiscos"><FaUtensils /></a></li>
+                        <li><a href="#bebidas"><FaGlassCheers /></a></li>
+                        <li><a href="#alcolicas"><FaBeer /></a></li>
+                    </ul>
+                </nav>
+
+                <section id="lanches">
+                    <h1>Lanches</h1>
+                    {menuItems.slice(0, 8).map((item, index) => (
+                        <button key={index} onClick={() => handleItemClick(item)}>
+                            <div className="name-lanche">
+                                <h3>{item.name}</h3>
+                                <h3>R$ {item.price.toFixed(2)}</h3>
+                            </div>
+                            <p>{item.description}</p>
+                        </button>
+                    ))}
+                </section>
+
+                <hr />
+
+                <section id="petiscos">
+                    <h1>Petiscos</h1>
+                    {menuItems.slice(8, 21).map((item, index) => (
+                        <button key={index} onClick={() => handleItemClick(item)}>
+                            <div className="name-lanche">
+                                <h3>{item.name}</h3>
+                                <h3>R$ {item.price.toFixed(2)}</h3>
+                            </div>
+                            <p>{item.description}</p>
+                        </button>
+                    ))}
+                </section>
+
+                <hr />
+
+                <section id="bebidas">
+                    <h1>Bebidas</h1>
+                    {menuItems.slice(21).map((item, index) => (
+                        <button key={index} onClick={() => handleItemClick(item)}>
+                            <div className="name-lanche">
+                                <h3>{item.name}</h3>
+                                <h3>R$ {item.price.toFixed(2)}</h3>
+                            </div>
+                            <p>{item.description}</p>
+                        </button>
+                    ))}
+                </section>
+
+                <section id="alcolicas">
+                    <h1>Alcoólicas</h1>
+                    {menuItems.slice(21).map((item, index) => (
+                        <button key={index} onClick={() => handleItemClick(item)}>
+                            <div className="name-lanche">
+                                <h3>{item.name}</h3>
+                                <h3>R$ {item.price.toFixed(2)}</h3>
+                            </div>
+                            <p>{item.description}</p>
+                        </button>
+                    ))}
+                </section>
+
+                <footer className={`footer ${isFooterExpanded ? 'expanded' : ''}`}>
+                    <button onClick={toggleFooter} className="expand-button">
+                        {isFooterExpanded ? 'Ocultar carrinho' : 'Mostrar carrinho'}
+                    </button>
+                    {isFooterExpanded && (
+                        <div className="cart-info">
+                            <h2>Carrinho</h2>
+                            <ul>
+                                {selectedItems.map((item, index) => (
+                                    <li key={index}>
+                                        {item.name} - R$ {item.price.toFixed(2)}
+                                    </li>
+                                ))}
+                            </ul>
+                            <button onClick={handleSubmit} className="finish">Enviar pedido</button>
+                        </div>
+                    )}
+                </footer>
+            </div>
         </div>
-    </div>
-)
+    );
+};
 
-export default Menu
+export default Menu;

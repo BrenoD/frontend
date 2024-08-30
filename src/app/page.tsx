@@ -1,10 +1,12 @@
-import Image from "next/image";
-import Welcome from "../pages/client/welcome"
+import React from 'react';
+import Welcome from '../pages/client/welcome'; // Importa o componente Welcome
 
-export default function Home() {
+const Home: React.FC = () => {
   return (
-  <div>
-    <Welcome />
-  </div>
-  )
-}
+    <div>
+      <Welcome />
+    </div>
+  );
+};
+
+export default Home;
