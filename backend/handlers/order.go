@@ -14,10 +14,14 @@ func CreateOrder(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    _, err := database.DB.Exec("INSERT INTO orders (mesa_id, item_id, quantidade) VALUES ($1, $2, $3)", order.MesaID, order.ItemID, order.Quantidade)
-    if err != nil {
-        http.Error(w, "Erro ao criar pedido", http.StatusInternalServerError)
-        return
+    for _, item := range order.Items {
+        _, err := database.DB.Exec(
+            "INSERT INTO orders (mesa_id, item_id, quantidade) VALUES ($1, (SELECT id FROM menu_items WHERE nome = $2), $3)",
+            order.MesaID, item.Nome, 1)  // A quantidade está fixa em 1 para simplificação
+        if err != nil {
+            http.Error(w, "Erro ao criar pedido", http.StatusInternalServerError)
+            return
+        }
     }
 
     w.WriteHeader(http.StatusCreated)

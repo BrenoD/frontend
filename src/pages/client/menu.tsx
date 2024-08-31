@@ -23,9 +23,36 @@ const Menu: React.FC = () => {
     };
 
     const handleSubmit = () => {
-        console.log("Itens enviados:", selectedItems);
-        setSelectedItems([]);
+        const order = {
+            mesa_id: tableNumber,
+            items: selectedItems.map(item => ({
+                nome: item.name,
+                preco: item.price,
+            })),
+        };
+    
+        fetch('http://localhost:8080/order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(order),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao enviar pedido');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Pedido enviado com sucesso:", data);
+            setSelectedItems([]);  // Limpa o carrinho após enviar o pedido
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
     };
+    
 
     const toggleFooter = () => {
         setIsFooterExpanded(!isFooterExpanded);

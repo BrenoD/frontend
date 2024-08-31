@@ -1,12 +1,12 @@
 package routes
 
 import (
-    "net/http"
+    "github.com/gorilla/mux"
     "backend/handlers"
 )
 
-func RegisterRoutes() {
-    http.HandleFunc("/menu", handlers.GetMenuItems)
-    http.HandleFunc("/order", handlers.CreateOrder)
-    http.HandleFunc("/tables", handlers.GetTables)
+func RegisterRoutes(r *mux.Router) {
+    r.HandleFunc("/menu", handlers.GetMenuItems).Methods("GET")
+    r.HandleFunc("/order", handlers.CreateOrder).Methods("POST")
+    r.HandleFunc("/tables", handlers.GetTables).Methods("GET")
 }

@@ -8,4 +8,7 @@ require (
 	github.com/lib/pq v1.10.9
 )
 
-require github.com/jinzhu/inflection v1.0.0 // indirect
+require (
+	github.com/jinzhu/inflection v1.0.0 // indirect
+	github.com/rs/cors v1.11.1 // indirect
+)
