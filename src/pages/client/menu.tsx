@@ -12,11 +12,21 @@ interface MenuItem {
 const Menu: React.FC = () => {
     const { tableNumber, setTableNumber, selectedItems, setSelectedItems } = useMenu();
     const [isFooterExpanded, setIsFooterExpanded] = useState(false);
+    const [totalOrderValue, setTotalOrderValue] = useState(0);
 
     useEffect(() => {
         const storedTableNumber = sessionStorage.getItem('mesa');
         setTableNumber(storedTableNumber || 'não definido');
     }, [setTableNumber]);
+
+    useEffect(() => {
+        const calculateTotal = () => {
+        const total = selectedItems.reduce((sum, item) => sum + item.price, 0);
+        setTotalOrderValue(total);
+    };
+    
+        calculateTotal();
+    }, [selectedItems]);
 
     const handleItemClick = (item: MenuItem) => {
         setSelectedItems(prevItems => [...prevItems, item]);
@@ -58,6 +68,25 @@ const Menu: React.FC = () => {
         setIsFooterExpanded(!isFooterExpanded);
     };
 
+    const removeItem = (indexToRemove) => {
+        setSelectedItems((prevItems) =>
+            prevItems.filter((item, index) => index !== indexToRemove)
+        );
+    };
+
+    const countItems = () =>{
+        let reincidences = 0;
+
+    for(let i = 0; i < selectedItems.length; i++){
+        for(let j = 0; j < selectedItems.length; j++){
+            if(selectedItems[j] == selectedItems[i]){
+                reincidences += 1;
+            }
+        }
+    }
+
+    }
+
     const menuItems: MenuItem[] = [
         { name: "Hamburguer", price: 16, description: "Pão especial de batata, Bife caseiro de 145g, Alface, tomate, banana e batata palha" },
         { name: "X-Burguer", price: 17, description: "Pão especial de batata, Bife caseiro de 145g, queijo, Alface, tomate, banana e batata palha" },
@@ -96,9 +125,7 @@ const Menu: React.FC = () => {
         { name: "Cerveja Lata", price: 8, description: "" },
         { name: "Cerveja 600ml", price: 11, description: "" },
         { name: "Caipirinha", price: 10, description: "" },
-        { name: "Cachaça", price: 5, description: "" },
-        { name: "Whisky", price: 15, description: "" },
-        { name: "Vodka", price: 12, description: "" },
+        { name: "Cachaça", price: 5, description: "" }
     ];
 
     return (
@@ -130,7 +157,7 @@ const Menu: React.FC = () => {
 
                 <section id="petiscos">
                     <h1>Petiscos</h1>
-                    {menuItems.slice(8, 21).map((item, index) => (
+                    {menuItems.slice(8, 25).map((item, index) => (
                         <button key={index} onClick={() => handleItemClick(item)}>
                             <div className="name-lanche">
                                 <h3>{item.name}</h3>
@@ -145,7 +172,7 @@ const Menu: React.FC = () => {
 
                 <section id="bebidas">
                     <h1>Bebidas</h1>
-                    {menuItems.slice(21).map((item, index) => (
+                    {menuItems.slice(25, 34).map((item, index) => (
                         <button key={index} onClick={() => handleItemClick(item)}>
                             <div className="name-lanche">
                                 <h3>{item.name}</h3>
@@ -158,7 +185,7 @@ const Menu: React.FC = () => {
 
                 <section id="alcolicas">
                     <h1>Alcoólicas</h1>
-                    {menuItems.slice(21).map((item, index) => (
+                    {menuItems.slice(34).map((item, index) => (
                         <button key={index} onClick={() => handleItemClick(item)}>
                             <div className="name-lanche">
                                 <h3>{item.name}</h3>
@@ -174,18 +201,32 @@ const Menu: React.FC = () => {
                         {isFooterExpanded ? 'Ocultar carrinho' : 'Mostrar carrinho'}
                     </button>
                     {isFooterExpanded && (
-                        <div className="cart-info">
-                            <h2>Carrinho</h2>
-                            <ul>
-                                {selectedItems.map((item, index) => (
-                                    <li key={index}>
-                                        {item.name} - R$ {item.price.toFixed(2)}
-                                    </li>
-                                ))}
-                            </ul>
-                            <button onClick={handleSubmit} className="finish">Enviar pedido</button>
-                        </div>
-                    )}
+                <div className="cart-info">
+                    <h2>Carrinho</h2>
+                    <ul>
+                        {Object.entries(
+                            selectedItems.reduce((acc, item) => {
+                                // Verifica se o item já foi contado, se sim, incrementa
+                                if (acc[item.name]) {
+                                    acc[item.name].quantity += 1;
+                                } else {
+                                    acc[item.name] = { ...item, quantity: 1 };
+                                }
+                                return acc;
+                            }, {})
+                        ).map(([name, item], index) => (
+                            <li key={index}>
+                                <button onClick={() => removeItem(index)}>-</button>
+                                {item.quantity}x {name} - R$ {(item.price * item.quantity).toFixed(2)}
+                            </li>
+                        ))}
+                    </ul>
+                    {/* Texto de valor total */}
+                    <h2 id="cart-total-text">Valor total: R$ {totalOrderValue.toFixed(2)}</h2>
+                    <button onClick={handleSubmit} className="finish">Enviar pedido</button>
+                </div>
+)}
+
                 </footer>
             </div>
         </div>
