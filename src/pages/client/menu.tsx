@@ -21,15 +21,15 @@ const Menu: React.FC = () => {
 
     useEffect(() => {
         const calculateTotal = () => {
-        const total = selectedItems.reduce((sum, item) => sum + item.price, 0);
-        setTotalOrderValue(total);
-    };
-    
+            const total = selectedItems.reduce((sum, item) => sum + item.price, 0);
+            setTotalOrderValue(total);
+        };
+        
         calculateTotal();
     }, [selectedItems]);
 
     const handleItemClick = (item: MenuItem) => {
-        setSelectedItems(prevItems => [...prevItems, item]);
+        setSelectedItems((prevItems: any) => [...prevItems, item]);
     };
 
     const handleSubmit = () => {
@@ -42,7 +42,7 @@ const Menu: React.FC = () => {
         };
     
         fetch('http://localhost:8080/order', {
-            method: 'POST',
+            method: 'OPTIONS', // Usar POST ao invés de OPTIONS para enviar dados
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -62,30 +62,28 @@ const Menu: React.FC = () => {
             console.error('Erro:', error);
         });
     };
-    
 
     const toggleFooter = () => {
         setIsFooterExpanded(!isFooterExpanded);
     };
 
-    const removeItem = (indexToRemove) => {
-        setSelectedItems((prevItems) =>
-            prevItems.filter((item, index) => index !== indexToRemove)
+    const removeItem = (indexToRemove: number) => {
+        setSelectedItems((prevItems: any[]) =>
+            prevItems.filter((_item: any, index: any) => index !== indexToRemove)
         );
     };
 
-    const countItems = () =>{
-        let reincidences = 0;
-
-    for(let i = 0; i < selectedItems.length; i++){
-        for(let j = 0; j < selectedItems.length; j++){
-            if(selectedItems[j] == selectedItems[i]){
-                reincidences += 1;
-            }
-        }
+    // Função para converter os itens selecionados em JSON
+    function convertToJSON(items: MenuItem[]): string {
+        return JSON.stringify(items, null, 2); // Adiciona indentação para legibilidade
     }
 
-    }
+    // Função para exibir o JSON dos itens selecionados
+    const handleConvertToJSON = () => {
+        const json = convertToJSON(selectedItems);
+        console.log(json);
+        // Você pode também fazer algo mais com o JSON, como enviá-lo para um servidor ou exibi-lo em um alerta
+    };
 
     const menuItems: MenuItem[] = [
         { name: "Hamburguer", price: 16, description: "Pão especial de batata, Bife caseiro de 145g, Alface, tomate, banana e batata palha" },
@@ -126,7 +124,7 @@ const Menu: React.FC = () => {
         { name: "Cerveja 600ml", price: 11, description: "" },
         { name: "Caipirinha", price: 10, description: "" },
         { name: "Cachaça", price: 5, description: "" }
-    ];
+    ]; 
 
     return (
         <div className="total-area-menu">
