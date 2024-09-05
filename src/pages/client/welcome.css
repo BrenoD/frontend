@@ -49,6 +49,7 @@ input {
     height: 40px;
     width: 350px;
     border-radius: 7px;
+    color: black;
 }
 
 button {

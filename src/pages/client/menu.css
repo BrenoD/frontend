@@ -167,6 +167,10 @@ hr {
     margin: 0px 0px 15px 20px;
 }
 
+.remove-button {
+    color: aliceblue;
+}
+
 /* Rodapé */
 footer {
     position: fixed;
