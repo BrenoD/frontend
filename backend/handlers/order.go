@@ -8,7 +8,6 @@ import (
 )
 
 func CreateOrder(w http.ResponseWriter, r *http.Request) {
-    println("teste")
     var order models.Order
     if err := json.NewDecoder(r.Body).Decode(&order); err != nil {
         http.Error(w, "Erro ao decodificar pedido", http.StatusBadRequest)
