@@ -10,13 +10,15 @@ interface MenuItem {
 }
 
 const Menu: React.FC = () => {
-    const { tableNumber, setTableNumber, selectedItems, setSelectedItems } = useMenu();
+    const [tableNumber, setTableNumber] = useState<number>(-1);
+    const {selectedItems, setSelectedItems } = useMenu();
     const [isFooterExpanded, setIsFooterExpanded] = useState(false);
     const [totalOrderValue, setTotalOrderValue] = useState(0);
 
     useEffect(() => {
         const storedTableNumber = sessionStorage.getItem('mesa');
-        setTableNumber(storedTableNumber || 'não definido');
+        const tableNumberAsInt = storedTableNumber ? parseInt(storedTableNumber, 10) : -1;
+        setTableNumber(tableNumberAsInt);
     }, [setTableNumber]);
 
     useEffect(() => {
