@@ -54,10 +54,10 @@ const Menu: React.FC = () => {
             if (!response.ok) {
                 throw new Error('Erro ao enviar pedido');
             }
-            return response.json();
+            return response.text();
         })
         .then(data => {
-            console.log("Pedido enviado com sucesso:", data);
+            console.log("Pedido enviado com sucesso:", JSON.stringify(order));
             setSelectedItems([]);  // Limpa o carrinho após enviar o pedido
         })
         .catch(error => {
